@@ -1,6 +1,8 @@
-# 小程序微信支付示例
+# LeanTodo server
 
-小程序微信支付「后端商户系统」。配合 LeanCloud 小程序 SDK 快速实现小程序微信支付功能。
+LeanTodo 的后端代码，forked from weapp-pay-getting-started#master。
+
+如果增加的功能是微信支付实例项目相关的，请在 master 上修改并 pick 到此分支。
 
 ## 部署
 
