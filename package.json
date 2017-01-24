@@ -1,7 +1,7 @@
 {
-  "name": "weapp-pay-getting-started",
+  "name": "leantodo",
   "version": "1.0.0",
-  "description": "A sample weapp-pay app",
+  "description": "LeanTodo backend depoly to LeanEngine",
   "private": true,
   "main": "server.js",
   "scripts": {
@@ -11,8 +11,7 @@
   "keywords": [
     "LeanCloud",
     "LeanEngine",
-    "Weapp",
-    "weixin-pay"
+    "LeanTodo"
   ],
   "license": "MIT",
   "dependencies": {
