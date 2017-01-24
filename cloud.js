@@ -56,5 +56,3 @@ AV.Cloud.define('order', (request, response) => {
     response.error(error);
   });
 });
-
-module.exports = AV.Cloud;
