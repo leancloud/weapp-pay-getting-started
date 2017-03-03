@@ -2,6 +2,7 @@ const uuid = require('uuid/v4');
 const AV = require('leanengine');
 const Order = require('./order');
 const wxpay = require('./wxpay');
+const request = require('request');
 
 /**
  * 一个简单的云代码方法
@@ -55,4 +56,46 @@ AV.Cloud.define('order', (request, response) => {
     console.error(error);
     response.error(error);
   });
+});
+
+const reload = (id) => {
+  if (!id) {
+    console.error('reload id missing');
+  }
+  request({
+    url: 'https://api.leancloud.cn/1.1/rtm/messages',
+    method: 'POST',
+    headers: {
+      'X-LC-Id': process.env.LEANCLOUD_APP_ID,
+      'X-LC-KEY': `${process.env.LEANCLOUD_APP_MASTER_KEY},master`,
+    },
+    json: true,
+    body: {
+      from_peer: 'LeanCloud Reloader',
+      to_peers: [id],
+      conv_id: '58b8de7444d904006bee4ded',
+      transient: true,
+      message: "reload",
+    }
+  }, (error, response, body) => {
+    if (error) return console.error(error);
+    console.log(response.statusCode, body);
+    console.log(`send reload message to ${id} successfully`);
+  });
+};
+
+AV.Cloud.afterSave('Todo', function(request) {
+  if (request.currentUser) {
+    reload(request.currentUser.id);
+  }
+});
+AV.Cloud.afterUpdate('Todo', function(request) {
+  if (request.currentUser) {
+    reload(request.currentUser.id);
+  }
+});
+AV.Cloud.afterDelete('Todo', function(request) {
+  if (request.currentUser) {
+    reload(request.currentUser.id);
+  }
 });
