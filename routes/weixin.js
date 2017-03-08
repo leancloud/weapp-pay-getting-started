@@ -25,7 +25,8 @@ router.post('/pay-callback', wxpay.useWXCallback((msg, req, res, next) => {
     transaction_id,
     bank_type,
   } = msg;
-  new AV.Query(Order).equalTo('tradeId', out_trade_no).first({
+  console.log('pay callback: ' + out_trade_no);
+  new AV.Query(Order).include('user').equalTo('tradeId', out_trade_no).first({
     useMasterKey: true,
   }).then(order => {
     if (!order) throw new Error(`找不到订单${out_trade_no}`);
@@ -40,10 +41,16 @@ router.post('/pay-callback', wxpay.useWXCallback((msg, req, res, next) => {
       bankType: bank_type,
     }, {
       useMasterKey: true,
+    }).then(() => {
+      // 需要延迟发送，否则可能会 form_id 无效
+      setTimeout(() => order.sendNotice(), 5000);
     });
   }).then(() => {
     res.success();
-  }).catch(error => res.fail(error.message));
+  }).catch(error => {
+    console.error(error.message);
+    res.fail(error.message)
+  });
 }));
 
 module.exports = router;
