@@ -9,12 +9,12 @@
 开始之前，请确保已经按照下面的步骤完成了环境变量的配置：
 
 1. 进入应用控制台 - 云引擎 - 设置
-2. 设置应用的二级域名并保存
+2. 绑定域名
 3. 添加并保存以下环境变量
   - `WEIXIN_APPID`：小程序 AppId
   - `WEIXIN_MCHID`：微信支付商户号
   - `WEIXIN_PAY_SECRET`：微信支付 API 密钥（[微信商户平台](https://pay.weixin.qq.com) - 账户设置 - API安全 - 密钥设置）
-  - `WEIXIN_NOTIFY_URL`：`https://{{yourdomain}}.leanapp.cn/weixin/pay-callback`，其中 `yourdomain` 是第二步中设置的二级域名
+  - `WEIXIN_NOTIFY_URL`：`https://{{yourdomain}}/weixin/pay-callback`，其中 `yourdomain` 是第二步中绑定的域名
 
 <details>
 <summary>Example</summary>
